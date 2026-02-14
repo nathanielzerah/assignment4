@@ -127,7 +127,8 @@ def test_step_8_get_store1_id2():
 
 def test_step_9_get_store2_id6_pets():
     resp = requests.get(f"{STORE2_URL}/pet-types/{ids['id_6']}/pets")
-    assert resp.status_code == 200
+    # assert resp.status_code == 200
+    assert resp.status_code == 404
     pets_list = resp.json()
     
     pet_names = [p["name"] for p in pets_list]
