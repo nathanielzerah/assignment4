@@ -1,145 +1,145 @@
-# import requests
-# import pytest
+import requests
+import pytest
 
-# STORE1_URL = "http://localhost:5001"
-# STORE2_URL = "http://localhost:5002"
+STORE1_URL = "http://localhost:5001"
+STORE2_URL = "http://localhost:5002"
 
-# API_KEY = "key"
+API_KEY = "key"
 
-# def get_headers():
-#     return {"X-API-KEY": API_KEY}
+def get_headers():
+    return {"X-API-KEY": API_KEY}
 
-# PET_TYPE1 = {"type": "Golden Retriever"}
-# PET_TYPE1_VAL = {
-#     "type": "Golden Retriever",
-#     "family": "Canidae",
-#     "genus": "Canis",
-#     "attributes": [],
-#     "lifespan": 12
-# }
+PET_TYPE1 = {"type": "Golden Retriever"}
+PET_TYPE1_VAL = {
+    "type": "Golden Retriever",
+    "family": "Canidae",
+    "genus": "Canis",
+    "attributes": [],
+    "lifespan": 12
+}
 
-# PET_TYPE2 = {"type": "Australian Shepherd"}
-# PET_TYPE2_VAL = {
-#     "type": "Australian Shepherd",
-#     "family": "Canidae",
-#     "genus": "Canis",
-#     "attributes": ["Loyal", "outgoing", "and", "friendly"],
-#     "lifespan": 15
-# }
+PET_TYPE2 = {"type": "Australian Shepherd"}
+PET_TYPE2_VAL = {
+    "type": "Australian Shepherd",
+    "family": "Canidae",
+    "genus": "Canis",
+    "attributes": ["Loyal", "outgoing", "and", "friendly"],
+    "lifespan": 15
+}
 
-# PET_TYPE3 = {"type": "Abyssinian"}
-# PET_TYPE3_VAL = {
-#     "type": "Abyssinian",
-#     "family": "Felidae",
-#     "genus": "Felis",
-#     "attributes": ["Intelligent", "and", "curious"],
-#     "lifespan": 13
-# }
+PET_TYPE3 = {"type": "Abyssinian"}
+PET_TYPE3_VAL = {
+    "type": "Abyssinian",
+    "family": "Felidae",
+    "genus": "Felis",
+    "attributes": ["Intelligent", "and", "curious"],
+    "lifespan": 13
+}
 
-# PET_TYPE4 = {"type": "bulldog"}
-# PET_TYPE4_VAL = {
-#     "type": "bulldog",
-#     "family": "Canidae",
-#     "genus": "Canis",
-#     "attributes": ["Gentle", "calm", "and", "affectionate"],
-#     "lifespan": None
-# }
+PET_TYPE4 = {"type": "bulldog"}
+PET_TYPE4_VAL = {
+    "type": "bulldog",
+    "family": "Canidae",
+    "genus": "Canis",
+    "attributes": ["Gentle", "calm", "and", "affectionate"],
+    "lifespan": None
+}
 
-# PET1_TYPE1 = {"name": "Lander", "birthdate": "14-05-2020"}
-# PET2_TYPE1 = {"name": "Lanky"}
-# PET3_TYPE1 = {"name": "Shelly", "birthdate": "07-07-2019"}
-# PET4_TYPE2 = {"name": "Felicity", "birthdate": "11-27-2011"}
-# PET5_TYPE3 = {"name": "Muscles"}
-# PET6_TYPE3 = {"name": "Junior"}
-# PET7_TYPE4 = {"name": "Lazy", "birthdate": "08-07-2018"}
-# PET8_TYPE4 = {"name": "Lemon", "birthdate": "03-27-2020"}
+PET1_TYPE1 = {"name": "Lander", "birthdate": "14-05-2020"}
+PET2_TYPE1 = {"name": "Lanky"}
+PET3_TYPE1 = {"name": "Shelly", "birthdate": "07-07-2019"}
+PET4_TYPE2 = {"name": "Felicity", "birthdate": "11-27-2011"}
+PET5_TYPE3 = {"name": "Muscles"}
+PET6_TYPE3 = {"name": "Junior"}
+PET7_TYPE4 = {"name": "Lazy", "birthdate": "08-07-2018"}
+PET8_TYPE4 = {"name": "Lemon", "birthdate": "03-27-2020"}
 
-# ids = {}
+ids = {}
 
-# def create_pet_type(url, payload, expected_val):
-#     resp = requests.post(f"{url}/pet-types", json=payload, headers=get_headers())
-#     assert resp.status_code == 201
-#     data = resp.json()
-#     assert "id" in data
+def create_pet_type(url, payload, expected_val):
+    resp = requests.post(f"{url}/pet-types", json=payload, headers=get_headers())
+    assert resp.status_code == 201
+    data = resp.json()
+    assert "id" in data
     
-#     for key in ["family", "genus", "lifespan", "attributes"]:
-#         if key in expected_val:
-#             if expected_val[key] is None:
-#                 continue 
-#             if key == "attributes":
-#                 assert sorted(data.get(key, [])) == sorted(expected_val[key])
-#             else:
-#                 assert data.get(key) == expected_val[key]
-#     return data["id"]
+    for key in ["family", "genus", "lifespan", "attributes"]:
+        if key in expected_val:
+            if expected_val[key] is None:
+                continue 
+            if key == "attributes":
+                assert sorted(data.get(key, [])) == sorted(expected_val[key])
+            else:
+                assert data.get(key) == expected_val[key]
+    return data["id"]
 
-# def add_pet(url, type_id, payload):
-#     resp = requests.post(f"{url}/pet-types/{type_id}/pets", json=payload, headers=get_headers())
-#     assert resp.status_code == 201
+def add_pet(url, type_id, payload):
+    resp = requests.post(f"{url}/pet-types/{type_id}/pets", json=payload, headers=get_headers())
+    assert resp.status_code == 201
 
-# def test_step_1_store1_types():
-#     ids["id_1"] = create_pet_type(STORE1_URL, PET_TYPE1, PET_TYPE1_VAL)
-#     ids["id_2"] = create_pet_type(STORE1_URL, PET_TYPE2, PET_TYPE2_VAL)
-#     ids["id_3"] = create_pet_type(STORE1_URL, PET_TYPE3, PET_TYPE3_VAL)
+def test_step_1_store1_types():
+    ids["id_1"] = create_pet_type(STORE1_URL, PET_TYPE1, PET_TYPE1_VAL)
+    ids["id_2"] = create_pet_type(STORE1_URL, PET_TYPE2, PET_TYPE2_VAL)
+    ids["id_3"] = create_pet_type(STORE1_URL, PET_TYPE3, PET_TYPE3_VAL)
     
-#     id_list = [ids["id_1"], ids["id_2"], ids["id_3"]]
-#     assert len(set(id_list)) == 3
+    id_list = [ids["id_1"], ids["id_2"], ids["id_3"]]
+    assert len(set(id_list)) == 3
 
-# def test_step_2_store2_types():
-#     ids["id_4"] = create_pet_type(STORE2_URL, PET_TYPE1, PET_TYPE1_VAL)
-#     ids["id_5"] = create_pet_type(STORE2_URL, PET_TYPE2, PET_TYPE2_VAL)
-#     ids["id_6"] = create_pet_type(STORE2_URL, PET_TYPE4, PET_TYPE4_VAL)
+def test_step_2_store2_types():
+    ids["id_4"] = create_pet_type(STORE2_URL, PET_TYPE1, PET_TYPE1_VAL)
+    ids["id_5"] = create_pet_type(STORE2_URL, PET_TYPE2, PET_TYPE2_VAL)
+    ids["id_6"] = create_pet_type(STORE2_URL, PET_TYPE4, PET_TYPE4_VAL)
 
-#     id_list = [ids["id_4"], ids["id_5"], ids["id_6"]]
-#     assert len(set(id_list)) == 3
+    id_list = [ids["id_4"], ids["id_5"], ids["id_6"]]
+    assert len(set(id_list)) == 3
 
-# def test_step_3_store1_pets_id1():
-#     add_pet(STORE1_URL, ids["id_1"], PET1_TYPE1)
-#     add_pet(STORE1_URL, ids["id_1"], PET2_TYPE1)
+def test_step_3_store1_pets_id1():
+    add_pet(STORE1_URL, ids["id_1"], PET1_TYPE1)
+    add_pet(STORE1_URL, ids["id_1"], PET2_TYPE1)
 
-# def test_step_4_store1_pets_id3():
-#     add_pet(STORE1_URL, ids["id_3"], PET5_TYPE3)
-#     add_pet(STORE1_URL, ids["id_3"], PET6_TYPE3)
+def test_step_4_store1_pets_id3():
+    add_pet(STORE1_URL, ids["id_3"], PET5_TYPE3)
+    add_pet(STORE1_URL, ids["id_3"], PET6_TYPE3)
 
-# def test_step_5_store2_pets_id4():
-#     add_pet(STORE2_URL, ids["id_4"], PET3_TYPE1)
+def test_step_5_store2_pets_id4():
+    add_pet(STORE2_URL, ids["id_4"], PET3_TYPE1)
 
-# def test_step_6_store2_pets_id5():
-#     add_pet(STORE2_URL, ids["id_5"], PET4_TYPE2)
+def test_step_6_store2_pets_id5():
+    add_pet(STORE2_URL, ids["id_5"], PET4_TYPE2)
 
-# def test_step_7_store2_pets_id6():
-#     add_pet(STORE2_URL, ids["id_6"], PET7_TYPE4)
-#     add_pet(STORE2_URL, ids["id_6"], PET8_TYPE4)
+def test_step_7_store2_pets_id6():
+    add_pet(STORE2_URL, ids["id_6"], PET7_TYPE4)
+    add_pet(STORE2_URL, ids["id_6"], PET8_TYPE4)
 
-# def test_step_8_get_store1_id2():
-#     resp = requests.get(f"{STORE1_URL}/pet-types", params={"id": ids["id_2"]})
+def test_step_8_get_store1_id2():
+    resp = requests.get(f"{STORE1_URL}/pet-types", params={"id": ids["id_2"]})
     
-#     resp = requests.get(f"{STORE1_URL}/pet-types")
-#     assert resp.status_code == 200
-#     all_types = resp.json()
-#     target = next((t for t in all_types if t["id"] == ids["id_2"]), None)
+    resp = requests.get(f"{STORE1_URL}/pet-types")
+    assert resp.status_code == 200
+    all_types = resp.json()
+    target = next((t for t in all_types if t["id"] == ids["id_2"]), None)
     
-#     assert target is not None
-#     for key, val in PET_TYPE2_VAL.items():
-#         if key == "attributes":
-#              assert sorted(target.get(key, [])) == sorted(val)
-#         else:
-#              assert target.get(key) == val
+    assert target is not None
+    for key, val in PET_TYPE2_VAL.items():
+        if key == "attributes":
+             assert sorted(target.get(key, [])) == sorted(val)
+        else:
+             assert target.get(key) == val
 
-# def test_step_9_get_store2_id6_pets():
-#     resp = requests.get(f"{STORE2_URL}/pet-types/{ids['id_6']}/pets")
-#     assert resp.status_code == 200
-#     # assert resp.status_code == 404
-#     pets_list = resp.json()
+def test_step_9_get_store2_id6_pets():
+    resp = requests.get(f"{STORE2_URL}/pet-types/{ids['id_6']}/pets")
+    assert resp.status_code == 200
+    # assert resp.status_code == 404
+    pets_list = resp.json()
     
-#     pet_names = [p["name"] for p in pets_list]
-#     assert PET7_TYPE4["name"] in pet_names
-#     assert PET8_TYPE4["name"] in pet_names
+    pet_names = [p["name"] for p in pets_list]
+    assert PET7_TYPE4["name"] in pet_names
+    assert PET8_TYPE4["name"] in pet_names
     
-#     for p in pets_list:
-#         if p["name"] == PET7_TYPE4["name"]:
-#             assert p["birthdate"] == PET7_TYPE4["birthdate"]
-#         if p["name"] == PET8_TYPE4["name"]:
-#             assert p["birthdate"] == PET8_TYPE4["birthdate"]
+    for p in pets_list:
+        if p["name"] == PET7_TYPE4["name"]:
+            assert p["birthdate"] == PET7_TYPE4["birthdate"]
+        if p["name"] == PET8_TYPE4["name"]:
+            assert p["birthdate"] == PET8_TYPE4["birthdate"]
 
 # - Tester test file -
 
@@ -451,158 +451,158 @@
 
 # - tester pytest file for checking query.txt file -
 
-import pytest
-import requests
-import json
+# import pytest
+# import requests
+# import json
 
-# Base URLs for the pet store instances
-PET_STORE_1_URL = "http://localhost:5001"
-PET_STORE_2_URL = "http://localhost:5002"
-PET_ORDER_URL = "http://localhost:5003"
+# # Base URLs for the pet store instances
+# PET_STORE_1_URL = "http://localhost:5001"
+# PET_STORE_2_URL = "http://localhost:5002"
+# PET_ORDER_URL = "http://localhost:5003"
 
-# Pet Type Payloads
-PET_TYPE1 = {
-    "type": "Golden Retriever"
-}
+# # Pet Type Payloads
+# PET_TYPE1 = {
+#     "type": "Golden Retriever"
+# }
 
-PET_TYPE2 = {
-    "type": "Australian Shepherd"
-}
+# PET_TYPE2 = {
+#     "type": "Australian Shepherd"
+# }
 
-PET_TYPE3 = {
-    "type": "Abyssinian"
-}
+# PET_TYPE3 = {
+#     "type": "Abyssinian"
+# }
 
-PET_TYPE4 = {
-    "type": "bulldog"
-}
+# PET_TYPE4 = {
+#     "type": "bulldog"
+# }
 
-# Pet Payloads
-PET1_TYPE1 = {
-    "name": "Lander",
-    "birthdate": "14-05-2020"
-}
+# # Pet Payloads
+# PET1_TYPE1 = {
+#     "name": "Lander",
+#     "birthdate": "14-05-2020"
+# }
 
-PET2_TYPE1 = {
-    "name": "Lanky"
-}
+# PET2_TYPE1 = {
+#     "name": "Lanky"
+# }
 
-PET3_TYPE1 = {
-    "name": "Shelly",
-    "birthdate": "07-07-2019"
-}
+# PET3_TYPE1 = {
+#     "name": "Shelly",
+#     "birthdate": "07-07-2019"
+# }
 
-PET4_TYPE2 = {
-    "name": "Felicity",
-    "birthdate": "27-11-2011"
-}
+# PET4_TYPE2 = {
+#     "name": "Felicity",
+#     "birthdate": "27-11-2011"
+# }
 
-PET5_TYPE3 = {
-    "name": "Muscles"
-}
+# PET5_TYPE3 = {
+#     "name": "Muscles"
+# }
 
-PET6_TYPE3 = {
-    "name": "Junior"
-}
+# PET6_TYPE3 = {
+#     "name": "Junior"
+# }
 
-PET7_TYPE4 = {
-    "name": "Lazy",
-    "birthdate": "07-08-2018"
-}
+# PET7_TYPE4 = {
+#     "name": "Lazy",
+#     "birthdate": "07-08-2018"
+# }
 
-PET8_TYPE4 = {
-    "name": "Lemon",
-    "birthdate": "27-03-2020"
-}
+# PET8_TYPE4 = {
+#     "name": "Lemon",
+#     "birthdate": "27-03-2020"
+# }
 
-# Global variables to store IDs
-pet_type_ids = {}
+# # Global variables to store IDs
+# pet_type_ids = {}
 
 
-def test_01_post_pet_types_to_store1():
-    """POST 3 pet-types to pet-store #1"""
-    global pet_type_ids
+# def test_01_post_pet_types_to_store1():
+#     """POST 3 pet-types to pet-store #1"""
+#     global pet_type_ids
     
-    # POST PET_TYPE1 to store 1
-    response1 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE1)
-    data1 = response1.json()
-    pet_type_ids['id_1'] = data1["id"]
+#     # POST PET_TYPE1 to store 1
+#     response1 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE1)
+#     data1 = response1.json()
+#     pet_type_ids['id_1'] = data1["id"]
     
-    # POST PET_TYPE2 to store 1
-    response2 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE2)
-    data2 = response2.json()
-    pet_type_ids['id_2'] = data2["id"]
+#     # POST PET_TYPE2 to store 1
+#     response2 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE2)
+#     data2 = response2.json()
+#     pet_type_ids['id_2'] = data2["id"]
     
-    # POST PET_TYPE3 to store 1
-    response3 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE3)
-    data3 = response3.json()
-    pet_type_ids['id_3'] = data3["id"]
+#     # POST PET_TYPE3 to store 1
+#     response3 = requests.post(f"{PET_STORE_1_URL}/pet-types", json=PET_TYPE3)
+#     data3 = response3.json()
+#     pet_type_ids['id_3'] = data3["id"]
 
 
-def test_02_post_pet_types_to_store2():
-    """POST 3 pet-types to pet-store #2"""
-    global pet_type_ids
+# def test_02_post_pet_types_to_store2():
+#     """POST 3 pet-types to pet-store #2"""
+#     global pet_type_ids
     
-    # POST PET_TYPE1 to store 2
-    response4 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE1)
-    data4 = response4.json()
-    pet_type_ids['id_4'] = data4["id"]
+#     # POST PET_TYPE1 to store 2
+#     response4 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE1)
+#     data4 = response4.json()
+#     pet_type_ids['id_4'] = data4["id"]
     
-    # POST PET_TYPE2 to store 2
-    response5 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE2)
-    data5 = response5.json()
-    pet_type_ids['id_5'] = data5["id"]
+#     # POST PET_TYPE2 to store 2
+#     response5 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE2)
+#     data5 = response5.json()
+#     pet_type_ids['id_5'] = data5["id"]
     
-    # POST PET_TYPE4 to store 2
-    response6 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE4)
-    data6 = response6.json()
-    pet_type_ids['id_6'] = data6["id"]
+#     # POST PET_TYPE4 to store 2
+#     response6 = requests.post(f"{PET_STORE_2_URL}/pet-types", json=PET_TYPE4)
+#     data6 = response6.json()
+#     pet_type_ids['id_6'] = data6["id"]
 
 
-def test_03_post_pets_to_store1_type1():
-    """POST 2 pets to pet-store #1 pet-type id_1"""
-    id_1 = pet_type_ids['id_1']
+# def test_03_post_pets_to_store1_type1():
+#     """POST 2 pets to pet-store #1 pet-type id_1"""
+#     id_1 = pet_type_ids['id_1']
     
-    # POST PET1_TYPE1
-    requests.post(f"{PET_STORE_1_URL}/pet-types/{id_1}/pets", json=PET1_TYPE1)
+#     # POST PET1_TYPE1
+#     requests.post(f"{PET_STORE_1_URL}/pet-types/{id_1}/pets", json=PET1_TYPE1)
     
-    # POST PET2_TYPE1
-    requests.post(f"{PET_STORE_1_URL}/pet-types/{id_1}/pets", json=PET2_TYPE1)
+#     # POST PET2_TYPE1
+#     requests.post(f"{PET_STORE_1_URL}/pet-types/{id_1}/pets", json=PET2_TYPE1)
 
 
-def test_04_post_pets_to_store1_type3():
-    """POST 2 pets to pet-store #1 pet-type id_3"""
-    id_3 = pet_type_ids['id_3']
+# def test_04_post_pets_to_store1_type3():
+#     """POST 2 pets to pet-store #1 pet-type id_3"""
+#     id_3 = pet_type_ids['id_3']
     
-    # POST PET5_TYPE3
-    requests.post(f"{PET_STORE_1_URL}/pet-types/{id_3}/pets", json=PET5_TYPE3)
+#     # POST PET5_TYPE3
+#     requests.post(f"{PET_STORE_1_URL}/pet-types/{id_3}/pets", json=PET5_TYPE3)
     
-    # POST PET6_TYPE3
-    requests.post(f"{PET_STORE_1_URL}/pet-types/{id_3}/pets", json=PET6_TYPE3)
+#     # POST PET6_TYPE3
+#     requests.post(f"{PET_STORE_1_URL}/pet-types/{id_3}/pets", json=PET6_TYPE3)
 
 
-def test_05_post_pet_to_store2_type1():
-    """POST 1 pet to pet-store #2 pet-type id_4"""
-    id_4 = pet_type_ids['id_4']
+# def test_05_post_pet_to_store2_type1():
+#     """POST 1 pet to pet-store #2 pet-type id_4"""
+#     id_4 = pet_type_ids['id_4']
     
-    # POST PET3_TYPE1
-    requests.post(f"{PET_STORE_2_URL}/pet-types/{id_4}/pets", json=PET3_TYPE1)
+#     # POST PET3_TYPE1
+#     requests.post(f"{PET_STORE_2_URL}/pet-types/{id_4}/pets", json=PET3_TYPE1)
 
 
-def test_06_post_pet_to_store2_type2():
-    """POST 1 pet to pet-store #2 pet-type id_5"""
-    id_5 = pet_type_ids['id_5']
+# def test_06_post_pet_to_store2_type2():
+#     """POST 1 pet to pet-store #2 pet-type id_5"""
+#     id_5 = pet_type_ids['id_5']
     
-    # POST PET4_TYPE2
-    requests.post(f"{PET_STORE_2_URL}/pet-types/{id_5}/pets", json=PET4_TYPE2)
+#     # POST PET4_TYPE2
+#     requests.post(f"{PET_STORE_2_URL}/pet-types/{id_5}/pets", json=PET4_TYPE2)
 
 
-def test_07_post_pets_to_store2_type4():
-    """POST 2 pets to pet-store #2 pet-type id_6"""
-    id_6 = pet_type_ids['id_6']
+# def test_07_post_pets_to_store2_type4():
+#     """POST 2 pets to pet-store #2 pet-type id_6"""
+#     id_6 = pet_type_ids['id_6']
     
-    # POST PET7_TYPE4
-    requests.post(f"{PET_STORE_2_URL}/pet-types/{id_6}/pets", json=PET7_TYPE4)
+#     # POST PET7_TYPE4
+#     requests.post(f"{PET_STORE_2_URL}/pet-types/{id_6}/pets", json=PET7_TYPE4)
     
-    # POST PET8_TYPE4
-    requests.post(f"{PET_STORE_2_URL}/pet-types/{id_6}/pets", json=PET8_TYPE4)
+#     # POST PET8_TYPE4
+#     requests.post(f"{PET_STORE_2_URL}/pet-types/{id_6}/pets", json=PET8_TYPE4)
